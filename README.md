@@ -83,3 +83,8 @@ meubels
 Harry Potter
 snacks
 beroepen 
+sport
+auto merken
+sprookjes
+feestdagen
+apps
