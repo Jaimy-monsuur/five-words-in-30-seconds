@@ -1,7 +1,8 @@
 <template>
   <div>
     <header>
-      <h1>30 Seconds App</h1>
+      <h1>Five words in</h1>
+      <h1>30 Seconds</h1>
     </header>
     <div class="app-container">
       <div v-if="currentCard !== null">
@@ -61,7 +62,7 @@ export default {
 
       // Get 5 random words without repeating
       const selectedWords = this.getRandomWords(5);
-
+      console.log("New array length: " + this.words.length);
       this.currentCard = {
         words: selectedWords
       };
@@ -69,9 +70,9 @@ export default {
     getRandomWords(count) {
       // Shuffle the array to get a random order
       const shuffledWords = this.shuffleArray(this.words);
-
+      this.words = shuffledWords;
       // Take the first 'count' words
-      return shuffledWords.slice(0, count);
+      return shuffledWords.splice(0, count);
     },
     shuffleArray(array) {
       // Fisher-Yates shuffle algorithm
@@ -102,7 +103,7 @@ export default {
 
 header {
   text-align: center;
-  padding: 20px;
+  padding: 10px;
   color: white; /* Text color for the header */
 }
 
@@ -122,7 +123,7 @@ header {
 
 .card-container {
   text-align: left;
-  margin-top: 20px;
+  margin-top: 15px;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Box shadow for a subtle lift effect */
@@ -137,6 +138,7 @@ header {
 }
 
 .next-button {
+  margin-top: 10px;
   background-color: #4caf50; /* Green background color for the button */
   color: white; /* Button text color */
   border: none;
