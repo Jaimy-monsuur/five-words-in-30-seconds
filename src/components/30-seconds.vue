@@ -23,13 +23,18 @@
 </template>
 
 <script>
-import wordsData from '@/assets/words.json';
 import audioSound from '@/assets/beep.mp3';
 
 export default {
+  props: {
+    wordsData: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      words: wordsData.words,
+      words: this.wordsData.words,
       currentCard: null,
       timer: 30,
       timerInterval: null
