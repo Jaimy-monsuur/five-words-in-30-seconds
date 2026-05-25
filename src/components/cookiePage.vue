@@ -12,11 +12,5 @@ export default {
 </script>
 
 <template>
-  <game  :words-data="wordsData"></game>
+  <game :words-data="wordsData"></game>
 </template>
-<style scoped>
-html {
-  background-color: #8a2be2; /* Purple background color */
-
-}
-</style>

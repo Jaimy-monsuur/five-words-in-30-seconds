@@ -2,8 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script>
+      document.documentElement.style.cssText = 'filter: none !important; background: #3c1053 !important;';
+      document.querySelector('meta[name="color-scheme"]')?.remove();
+      const meta = document.createElement('meta');
+      meta.name = 'color-scheme';
+      meta.content = 'only light';
+      document.head.prepend(meta);
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="only light">
     <title>Five words in 30 seconds</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@300;400;500;700&display=swap" rel="stylesheet">
 
     <!-- Favicon for general use -->
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
