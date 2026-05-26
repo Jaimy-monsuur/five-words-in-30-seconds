@@ -2,16 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <script>
-      document.documentElement.style.cssText = 'filter: none !important; background: #3c1053 !important;';
-      document.querySelector('meta[name="color-scheme"]')?.remove();
-      const meta = document.createElement('meta');
-      meta.name = 'color-scheme';
-      meta.content = 'only light';
-      document.head.prepend(meta);
-    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="color-scheme" content="only light">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#3c1053" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#140a2d" media="(prefers-color-scheme: dark)">
     <title>Five words in 30 seconds</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">

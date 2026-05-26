@@ -1,23 +1,5 @@
 <script setup>
 import { RouterView } from 'vue-router'
-import { onMounted } from 'vue'
-
-onMounted(() => {
-  setTimeout(() => {
-    const bodyBg = window.getComputedStyle(document.body).backgroundColor;
-
-    if (bodyBg === 'rgb(0, 0, 0)' || bodyBg === 'rgb(18, 18, 18)' || bodyBg === 'rgb(30, 30, 30)') {
-      document.documentElement.style.setProperty('background-color', '#ffffff', 'important');
-      document.body.style.setProperty('background-color', '#ffffff', 'important');
-      document.body.style.setProperty('color', '#1a1a1a', 'important');
-
-      const allTexts = document.querySelectorAll('p, h1, h2, h3, h4, span, a, li');
-      allTexts.forEach(el => {
-        el.style.setProperty('color', '#1a1a1a', 'important');
-      });
-    }
-  }, 300);
-})
 </script>
 
 <template>
@@ -41,7 +23,7 @@ onMounted(() => {
 }
 
 :root {
-  color-scheme: only light !important;
+  color-scheme: light dark;
   --purple-deep: #3c1053;
   --purple-mid: #7b2d8e;
   --purple: #9b30ff;
@@ -53,6 +35,12 @@ onMounted(() => {
   --timer-orange: #ff9800;
   --timer-red: #f44336;
   --card-bg: #faf5ff;
+  --card-item-bg: #f3e8ff;
+  --card-border: rgba(155, 48, 255, 0.12);
+  --card-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 6px 20px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04);
   --text-primary: #ffffff;
   --text-on-card: #1a0a2e;
   --text-muted: rgba(255, 255, 255, 0.7);
@@ -135,12 +123,27 @@ body {
 }
 
 @media (prefers-color-scheme: dark) {
-  html {
-    filter: invert(1) hue-rotate(180deg) !important;
-  }
-
-  img, video, iframe, [class*="icon"], .no-invert {
-    filter: invert(1) hue-rotate(180deg) !important;
+  :root {
+    --purple-deep: #140a2d;
+    --purple-mid: #2a1452;
+    --purple: #5f2ca5;
+    --purple-light: #b987ff;
+    --purple-glow: rgba(122, 78, 221, 0.32);
+    --green: #67d98a;
+    --green-glow: rgba(103, 217, 138, 0.28);
+    --timer-green: #67d98a;
+    --timer-orange: #ffb74d;
+    --timer-red: #ff6b6b;
+    --card-bg: #201633;
+    --card-item-bg: #2a1d42;
+    --card-border: rgba(194, 146, 255, 0.24);
+    --card-shadow:
+      0 24px 72px rgba(8, 5, 22, 0.62),
+      0 8px 24px rgba(5, 3, 14, 0.5),
+      0 1px 0 rgba(194, 146, 255, 0.1) inset;
+    --text-primary: #f7f3ff;
+    --text-on-card: #f2e9ff;
+    --text-muted: rgba(232, 219, 255, 0.74);
   }
 }
 </style>

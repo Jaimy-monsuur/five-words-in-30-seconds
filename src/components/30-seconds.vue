@@ -484,12 +484,9 @@ export default {
   position: absolute;
   inset: 0;
   border-radius: 20px;
-  background: #faf5ff !important;
-  border: 1px solid rgba(155, 48, 255, 0.12);
-  box-shadow:
-    0 20px 60px rgba(0, 0, 0, 0.15),
-    0 6px 20px rgba(0, 0, 0, 0.08),
-    0 2px 8px rgba(0, 0, 0, 0.04);
+  background: var(--card-bg) !important;
+  border: 1px solid var(--card-border);
+  box-shadow: var(--card-shadow);
   overflow: hidden;
   backdrop-filter: blur(2px);
   forced-color-adjust: none !important;
@@ -500,7 +497,7 @@ export default {
   flex-direction: column;
   height: 100%;
   padding: 28px 24px 24px;
-  background: #faf5ff;
+  background: var(--card-bg);
   forced-color-adjust: none;
 }
 
@@ -581,10 +578,10 @@ export default {
   font-family: var(--font-display);
   font-size: clamp(1rem, 3.5vw, 1.4rem);
   font-weight: 500;
-  color: #1a0a2e !important;
+  color: var(--text-on-card) !important;
   padding: 6px 12px;
   border-radius: 8px;
-  background: #f3e8ff !important;
+  background: var(--card-item-bg) !important;
   border-left: 3px solid var(--purple-light);
   line-height: 1.4;
   animation: wordIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) backwards;

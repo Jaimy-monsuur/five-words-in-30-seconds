@@ -25,7 +25,7 @@
       </router-link>
       <router-link to="/cookie" class="button button--base">
         <span class="button-label">Cookie Games</span>
-        <span class="button-desc">Bekende Nederlanders</span>
+        <span class="button-desc">The Cookie Edition</span>
       </router-link>
     </nav>
 
