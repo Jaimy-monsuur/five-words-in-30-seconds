@@ -127,7 +127,7 @@ body {
   font-size: 0.9rem;
   font-weight: 600;
   color: var(--text-primary);
-  background: rgba(20, 10, 45, 0.4);
+  background: rgba(26, 16, 48, 0.5);
   backdrop-filter: blur(10px);
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -188,26 +188,26 @@ body {
 }
 
 [data-theme='dark'] {
-  --purple-deep: #140a2d;
-  --purple-mid: #2a1452;
-  --purple: #5f2ca5;
-  --purple-light: #b987ff;
-  --purple-glow: rgba(122, 78, 221, 0.32);
-  --green: #67d98a;
-  --green-glow: rgba(103, 217, 138, 0.28);
-  --timer-green: #67d98a;
-  --timer-orange: #ffb74d;
-  --timer-red: #ff6b6b;
-  --card-bg: #201633;
-  --card-item-bg: #2a1d42;
-  --card-border: rgba(194, 146, 255, 0.24);
+  --purple-deep: #1a1030;
+  --purple-mid: #2e1a4a;
+  --purple: #9b30ff;
+  --purple-light: #b77dff;
+  --purple-glow: rgba(155, 48, 255, 0.4);
+  --green: #4caf50;
+  --green-glow: rgba(76, 175, 80, 0.4);
+  --timer-green: #4caf50;
+  --timer-orange: #ff9800;
+  --timer-red: #f44336;
+  --card-bg: #281a40;
+  --card-item-bg: #35234f;
+  --card-border: rgba(155, 48, 255, 0.18);
   --card-shadow:
-    0 24px 72px rgba(8, 5, 22, 0.62),
-    0 8px 24px rgba(5, 3, 14, 0.5),
-    0 1px 0 rgba(194, 146, 255, 0.1) inset;
+    0 24px 72px rgba(8, 5, 22, 0.5),
+    0 8px 24px rgba(5, 3, 14, 0.4),
+    0 1px 0 rgba(155, 48, 255, 0.08) inset;
   --text-primary: #f7f3ff;
-  --text-on-card: #f2e9ff;
-  --text-muted: rgba(232, 219, 255, 0.74);
+  --text-on-card: #f7f3ff;
+  --text-muted: rgba(242, 234, 255, 0.78);
 }
 
 @media (max-width: 640px) {
