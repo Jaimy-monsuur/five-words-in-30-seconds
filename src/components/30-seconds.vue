@@ -99,6 +99,8 @@
   </div>
 </template>
 <script>
+import beepUrl from '@/assets/beep.mp3';
+
 const SPEED_THRESHOLD = 80;
 
 export default {
@@ -124,7 +126,17 @@ export default {
       timerInterval: null,
       cardsCompleted: 0,
       cardIdCounter: 0,
+      beepAudio: null,
+      audioContext: null,
     };
+  },
+  created() {
+    this.beepAudio = new Audio(beepUrl);
+    this.beepAudio.preload = 'auto';
+  },
+  beforeUnmount() {
+    if (this.timerInterval) clearInterval(this.timerInterval);
+    if (this.audioContext) this.audioContext.close();
   },
   computed: {
     topCard() {
@@ -202,8 +214,99 @@ export default {
         this.cardStack.push(card);
       }
     },
-    startGame() {
+    unlockAudio() {
+      if (this.beepAudio) {
+        this.beepAudio.load();
+      }
+
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass && !this.audioContext) {
+        this.audioContext = new AudioContextClass();
+      }
+
+      if (this.audioContext && this.audioContext.state === 'suspended') {
+        this.audioContext.resume().catch(e => {
+          console.error('Error unlocking audio context:', e);
+        });
+      }
+    },
+    startTimer() {
       this.timer = 30;
+      if (this.timerInterval) clearInterval(this.timerInterval);
+
+      this.timerInterval = setInterval(() => {
+        if (this.timer > 0) {
+          this.timer--;
+        }
+
+        if (this.timer === 0) {
+          this.handleTimerFinished();
+        }
+      }, 1000);
+    },
+    handleTimerFinished() {
+      if (!this.timerInterval) return;
+
+      clearInterval(this.timerInterval);
+      this.timerInterval = null;
+      this.timer = 0;
+      this.playBeep();
+    },
+    playBeep() {
+      if (!this.beepAudio) {
+        this.playFallbackBeep();
+        return;
+      }
+
+      try {
+        this.beepAudio.currentTime = 0;
+        const playPromise = this.beepAudio.play();
+        if (playPromise) {
+          playPromise.catch(e => {
+            console.error('Error playing sound:', e);
+            this.playFallbackBeep();
+          });
+        }
+      } catch (error) {
+        console.error('Error in audio playback:', error);
+        this.playFallbackBeep();
+      }
+    },
+    playFallbackBeep() {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return;
+
+      if (!this.audioContext) {
+        this.audioContext = new AudioContextClass();
+      }
+
+      const playTone = () => {
+        const oscillator = this.audioContext.createOscillator();
+        const gain = this.audioContext.createGain();
+        const now = this.audioContext.currentTime;
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(880, now);
+        gain.gain.setValueAtTime(0.001, now);
+        gain.gain.exponentialRampToValueAtTime(0.35, now + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+        oscillator.connect(gain);
+        gain.connect(this.audioContext.destination);
+        oscillator.start(now);
+        oscillator.stop(now + 0.38);
+      };
+
+      if (this.audioContext.state === 'suspended') {
+        this.audioContext.resume().then(playTone).catch(e => {
+          console.error('Error playing fallback beep:', e);
+        });
+      } else {
+        playTone();
+      }
+    },
+    startGame() {
+      this.unlockAudio();
       this.cardsCompleted = 0;
       this.cardStack = [];
       this.cardIdCounter = 0;
@@ -217,13 +320,7 @@ export default {
       this.shuffleArray(this.words);
       this.fillStack();
       this.gameState = 'playing';
-
-      if (this.timerInterval) clearInterval(this.timerInterval);
-      this.timerInterval = setInterval(() => {
-        if (this.timer > 0) {
-          this.timer--;
-        }
-      }, 1000);
+      this.startTimer();
     },
     startDrag(e) {
       if (this.isLeaving || this.isSettling || this.isNext || this.gameState !== 'playing') return;
@@ -260,6 +357,7 @@ export default {
     },
     nextCard() {
       if (this.isLeaving || this.isSettling || this.isNext) return;
+      this.unlockAudio();
       this.isNext = true;
       setTimeout(() => {
         this.advanceCard();
@@ -273,13 +371,7 @@ export default {
       this.swipeX = 0;
       this.swipeY = 0;
 
-      this.timer = 30;
-      if (this.timerInterval) clearInterval(this.timerInterval);
-      this.timerInterval = setInterval(() => {
-        if (this.timer > 0) {
-          this.timer--;
-        }
-      }, 1000);
+      this.startTimer();
 
       this.isSettling = true;
       setTimeout(() => {
